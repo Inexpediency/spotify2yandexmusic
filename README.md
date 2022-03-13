@@ -3,7 +3,7 @@ Tool for Migration from Spotify to Yandex Music
 
 ## Getting stated
 1) Install requirements: `pip3 install -r requirements.txt`
-2) Provide environment variables (see configuration)
+2) Provide environment variables ([see configuration](#configuration))
 3) Run application: `python3 ./src/main.py`
 
 ## Configuration
