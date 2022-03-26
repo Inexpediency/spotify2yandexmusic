@@ -44,10 +44,10 @@ def main():
                 
                 attemp_count += 1
     
-    spotify_saved_tracks = spotify.get_saved_tracks()
+    spotify_playlist = spotify.get_saved_tracks()
     print(f'Adding {spotify_playlist.name}')
     
-    for spotify_track in spotify_saved_tracks.tracks:
+    for spotify_track in spotify_playlist.tracks:
         artists = ' '.join(map(lambda artist: artist.name, spotify_track.artists))
         track_name = f'{spotify_track.title} {artists}'
 
