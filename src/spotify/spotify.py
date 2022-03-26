@@ -8,19 +8,18 @@ from .track import Track
 
 
 class SpotifyWrapper:
-    def __init__(self, client: Spotify, username: str):
+    def __init__(self, client: Spotify):
         self._client = client
-        self._username = username
 
     def get_playlists(self) -> List[Playlist]:
         playlists: List[Playlist] = []
-        playlists_row = self._client.user_playlists(self._username)
+        playlists_row = self._client.current_user_playlists()
 
         while playlists_row:
             for playlist in playlists_row['items']:
                 playlist_name = str(playlist['name'])
                 playlist_id = str(playlist['id'])
-
+        
                 print(f'Extracting playlist: {playlist_name}')
 
                 playlists.append(Playlist(
@@ -34,6 +33,15 @@ class SpotifyWrapper:
                 playlists_row = None
 
         return playlists
+    
+    def get_saved_tracks(self) -> Playlist:
+        playlist_name = 'Liked Songs'
+        print(f'Extracting playlist: {playlist_name}')
+
+        return Playlist(
+            name=playlist_name,
+            id='0',
+            tracks=self.extract_my_tracks())
 
     def extract_playlist_tracks(self, playlist_id: str) -> List[Track]:
         tracks: List[Track] = []
@@ -56,7 +64,22 @@ class SpotifyWrapper:
             offset += len(response['items'])
 
         return tracks
+    
+    def extract_my_tracks(self) -> List[Track]:
+        tracks: List[Track] = []
+        tracks_row = self._client.current_user_saved_tracks()
+        
+        while tracks_row:
+            for item in tracks_row['items']:
+                tracks.append(self.extract_track_credentials(item['track']['id']))
 
+            if tracks_row['next']:
+                tracks_row = self._client.next(tracks_row)
+            else:
+                tracks_row = None
+            
+        return tracks
+        
     def extract_track_credentials(self, track_id: str):
         track = self._client.track(track_id)
         artists = list(map(lambda artist: Artist(id=artist['id'], name=artist['name']), track['artists']))
