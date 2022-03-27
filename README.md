@@ -23,7 +23,7 @@ Create a new application. Type something in app name and description fields, che
 Open settings, fill the field "Redirect URIs" with `https://localhost` and press "Add", after press "Save".
 Client id will be under the name and app status. To get client secret press the button "Show client secret".
 
-IMPORTANT: Redirect uri must be exactly the same one as in application settings is dashboard.
+IMPORTANT: Redirect uri must be exactly the same one as in application settings.
 
 ### Yandex music token
 You can get it by clicking on the [link](https://oauth.yandex.ru/authorize?response_type=token&client_id=23cabbbdc6cd418abb4b39c32c41195d).
