@@ -30,8 +30,8 @@ def main():
             artists = ' '.join(map(lambda artist: artist.name, spotify_track.artists))
             track_name = f'{spotify_track.title} {artists}'
 
-            attemp_count = 1
-            while attemp_count <= 3:
+            attempt_count = 1
+            while attempt_count <= 3:
                 try:
                     yandex_track = yam.search_track(track_name)
                     yandex_playlist = yam.add_to_playlist(yandex_playlist, yandex_track)
@@ -40,9 +40,9 @@ def main():
                     print(f'Can\'t found track: "{track_name}" to add to playlist "{spotify_playlist.name}"')
                     break
                 except Exception as e:
-                    print(f'Something went wrong... Attemp {attemp_count} {e}')
+                    print(f'Something went wrong... Attempt {attempt_count} {e}')
                 
-                attemp_count += 1
+                attempt_count += 1
     
     spotify_playlist = spotify.get_saved_tracks()
     print(f'Adding {spotify_playlist.name}')
@@ -51,8 +51,8 @@ def main():
         artists = ' '.join(map(lambda artist: artist.name, spotify_track.artists))
         track_name = f'{spotify_track.title} {artists}'
 
-        attemp_count = 1
-        while attemp_count <= 3:
+        attempt_count = 1
+        while attempt_count <= 3:
             try:
                 yandex_track = yam.search_track(track_name)
                 yandex_playlist = yam.like_track(yandex_track)
@@ -61,9 +61,9 @@ def main():
                 print(f'Can\'t found track: "{track_name}" to add to playlist "{spotify_playlist.name}"')
                 break
             except Exception as e:
-                print(f'Something went wrong... Attemp {attemp_count} {e}')
+                print(f'Something went wrong... Attempt {attempt_count} {e}')
                 
-            attemp_count += 1
+            attempt_count += 1
 
 
 if __name__ == '__main__':
